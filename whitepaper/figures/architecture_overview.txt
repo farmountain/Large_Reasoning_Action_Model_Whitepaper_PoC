@@ -1,0 +1,45 @@
+LRAM Architecture Overview
+===========================
+
+          raw problem (Sigma)
+                |
+                v
+     +----------+----------+
+     |   Prajna Abstraction |    <- Tier 1: symbolic compression, invariant mining
+     +----------+----------+
+                |
+                v
+     bounded candidate set (C)
+                |
+                v
+     +----------+----------+
+     |   Grover Amplifier   |    <- Tier 2: quantum square-root search over oracle f
+     +----------+----------+
+                |
+                v
+     accepted candidate (c in S)
+                |
+                v
+     +----------+----------+
+     |  Tier-3 Validator    |    <- Tier 3: Lean formal check + DoWhy causal check
+     |  (Lean + DoWhy +     |               + TransformerLens circuit probe
+     |   TransformerLens)   |
+     +----------+----------+
+                |
+         pass / fail verdict
+                |
+                v
+     +----------+----------+
+     |   Reflexion Memory   |    <- outer loop: textual critiques, decay, replay
+     +----------+----------+
+                |
+         update Prajna prior and teacher weights
+                |
+                v
+     +----------+----------+
+     | Teacher Ensemble     |    <- LLM + LAM + SLM teachers
+     | (distillation in)    |
+     +----------+----------+
+                |
+                v
+     LRAM student policy + world model

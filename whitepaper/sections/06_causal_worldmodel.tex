@@ -1,0 +1,16 @@
+A reasoning and action model must separate association from causation. In LRAM we treat the world model as a structural causal model whose variables represent latent mathematical objects, proof states, or environment states, and whose edges represent mechanisms. The student learns a compressed structural causal model from teacher trajectories, where the teachers can be large language models that emit informal explanations, large action models that emit executable action sequences, and small specialist models that emit high-quality domain-specific predictions.
+
+\subsection{Structural Causal Model}
+Let the world be described by a directed acyclic graph with latent and observed variables. A do-intervention sets a variable to a specific value, severing inbound mechanisms to that variable while preserving all others. The student model approximates the post-intervention distribution through a neural structural causal layer.
+
+\subsection{Do-Attention Layer}
+Standard attention scores a query-key pair by their inner product under an observational distribution. Do-attention replaces the observational distribution by an interventional distribution induced by $\mathrm{do}(x)$. This gives a pathway for the student to reason counterfactually inside the transformer stack rather than only at the training-data level. The do-attention equation is given in Section 5 and Appendix equation set.
+
+\subsection{World-Model Distillation}
+The student learns a predictive world model by minimising the composite loss stated in Section 5 over trajectories produced by the teacher ensemble. The reward term imposes consistency with teacher-assigned action values. The next-state term imposes prediction fidelity. The Kullback-Leibler term aligns the student's policy with the teacher ensemble under the interventional distribution.
+
+\subsection{Circuit-Level Validation}
+After distillation, the internal computation of the student is inspected with mechanistic-interpretability tools such as activation patching and circuit probes. The objective is to verify that the student's reasoning does not merely mimic teachers superficially, but reproduces the causal circuits the teachers used. A candidate answer that is correct in output but wrong in circuit is treated as a warning signal by the tier-3 validator and is subject to additional inversion checks.
+
+\subsection{Identifiability}
+Not every causal effect is identifiable from observational data alone. We use the classical do-calculus criteria to decide whether a given target effect is identifiable under the student model. If the effect is not identifiable, the tier-3 validator rejects the candidate unless additional teacher trajectories from explicit do-interventions are available, or the circuit probe provides an independent verification path.

@@ -1,0 +1,23 @@
+Three-Tier Intelligence Stack
+==============================
+
+Tier 1 - Prajna Abstraction
+   role:     turn raw statements into bounded abstract representations
+   tooling:  SymPy + HF transformers + invariant miner
+   output:   candidate set C with |C| << |Sigma|
+
+Tier 2 - Grover Amplifier
+   role:     find accepted candidates with O(sqrt(N/M)) oracle queries
+   tooling:  Qiskit Aer simulator (classical fallback for |C| <= 2^20)
+   output:   candidate c with f(c) = 1
+
+Tier 3 - Formal / Causal / Circuit Validator
+   sub A:    Lean 4 + mathlib  (formal verification)
+   sub B:    DoWhy             (causal identification, do-intervention check)
+   sub C:    TransformerLens   (circuit attribution, faithfulness)
+   accept:   logical AND of all three sub-validators
+
+Outer Loop - Reflexion
+   role:     convert tier-3 rejections into natural-language memory
+   tooling:  LangGraph + LLM teacher call
+   output:   updated Prajna prior and updated teacher weights

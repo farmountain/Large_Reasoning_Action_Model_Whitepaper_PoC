@@ -1,0 +1,25 @@
+Inversion thinking asks not how the system succeeds but how it can fail. We enumerate failure modes and map each to a violated assumption, a concrete symptom, and a mitigation.
+
+\subsection{Unbounded Candidate Space}
+If Prajna fails to compress the problem into a finite candidate set, the Grover stage cannot run. The symptom is an exploding candidate count. The mitigation is to invoke the higher-dimensional lifting of Section 9, or to reject the problem as out-of-scope for the current system.
+
+\subsection{Oracle as Hard as Theorem}
+If the oracle requires solving the theorem itself to check a candidate, the Grover speedup is illusory. The symptom is an oracle wall-clock time that matches the classical brute-force time. The mitigation is to redesign the oracle to check a weaker sufficient condition, or to decompose the theorem into lemmas with cheaper oracles.
+
+\subsection{Undecidable Statement}
+If the target statement is undecidable in the chosen formal system, no proof-search procedure terminates. The symptom is non-termination of the tier-3 validator. The mitigation is to switch formal system, to restrict the statement to a decidable fragment, or to report the undecidability finding as a result.
+
+\subsection{Distillation Hallucination}
+If the teacher ensemble contains a teacher that confidently emits false statements, the student can inherit the hallucination. The symptom is a high training reward combined with a tier-3 rejection rate that exceeds a threshold. The mitigation is adversarial teacher weighting and circuit-level cross-checking.
+
+\subsection{Causal Non-Identifiability}
+If a candidate depends on a causal effect that is not identifiable from the available teacher trajectories, the do-attention layer produces unreliable outputs. The symptom is inconsistency under interventional replays. The mitigation is to request additional explicit do-interventions from teachers or to fall back to observational reasoning with explicit uncertainty flags.
+
+\subsection{Circuit Superficial Match}
+If the student reproduces the teacher's outputs but not the teacher's circuits, downstream generalisation fails. The symptom is a high in-distribution accuracy combined with a low out-of-distribution accuracy. The mitigation is circuit-probe regularisation during training.
+
+\subsection{Reflexion Overfitting to Critiques}
+If the Reflexion memory accumulates critiques that are themselves biased, the student can overfit to those critiques. The symptom is a monotonic decrease in exploration. The mitigation is a decay term on old Reflexion entries and periodic critique validation.
+
+\subsection{Summary}
+Every failure mode above corresponds to a violated assumption listed in the Paul-Elder analysis of Section 3. The architecture is designed so that each failure mode has a specific monitor and a specific mitigation. No failure mode causes silent failure.

@@ -1,0 +1,14 @@
+numpy>=1.26
+sympy>=1.12
+pytest>=7.4
+jupyter>=1.0
+qiskit>=1.0
+qiskit-aer>=0.13
+torch>=2.2
+transformers>=4.40
+transformer-lens>=1.14
+dowhy>=0.11
+causalnex>=0.12
+ray[rllib]>=2.9
+langgraph>=0.0.40
+wandb>=0.16

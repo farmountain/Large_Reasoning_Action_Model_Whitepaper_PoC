@@ -1,0 +1,22 @@
+We present a staged roadmap from the current proof-of-concept to the ambition of Millennium-level contribution. Each stage has explicit entry criteria, explicit success metrics, and explicit abandonment criteria. The roadmap is honest in that it explicitly identifies the stages at which the current LRAM design is known to be insufficient and would require new research.
+
+\subsection{Stage 1: Toy Conjectures}
+Entry criterion: a bounded symbolic family with a cheap oracle. Success metric: 90 percent tier-3 pass rate on held-out instances. Current status: demonstrated in the PoV workshop.
+
+\subsection{Stage 2: mathlib Lemmas}
+Entry criterion: a selection of formally stated lemmas from mathlib whose proofs are short but non-trivial. Success metric: 50 percent tier-3 pass rate on held-out lemmas within a bounded time budget. Current status: plausible with additional engineering, not yet demonstrated.
+
+\subsection{Stage 3: Competition Mathematics}
+Entry criterion: a corpus of formalised competition problems such as the miniF2F benchmark. Success metric: state-of-the-art pass rate under a fixed compute budget. Current status: LRAM is expected to be competitive after teacher-ensemble and Reflexion tuning, with no fundamental new ideas required.
+
+\subsection{Stage 4: Millennium-Adjacent Fragments}
+Entry criterion: a bounded or numerical fragment of a Millennium problem, such as the verification of bounded families of zeta zeros under the Riemann Hypothesis, or restricted initial-data sets for Navier-Stokes. Success metric: the pipeline reproduces known numerical results and extends them by a modest amount within a defined compute budget. Current status: speculative and requires significant research investment.
+
+\subsection{Stage 5: Frontier Millennium Attack}
+Entry criterion: new mathematical ideas, not just more compute, in the Prajna and higher-dimensional-lifting components. Success metric: a candidate proof or counterexample for a Millennium problem accepted by the Clay Mathematics Institute. Current status: explicitly beyond what the current architecture can deliver. Attempting this stage without prior completion of stages 1-4 would be methodologically dishonest.
+
+\subsection{Abandonment Criteria}
+At each stage we declare an abandonment criterion. If the tier-3 pass rate stalls below the stage target for a sustained number of epochs, the stage is abandoned and the architecture is reworked. This discipline prevents a drift into infinitely-postponed promises.
+
+\subsection{Summary}
+The roadmap is ambitious. It is also bounded. It treats the Millennium Prize Problems not as a slogan but as a fifth-stage goal that presumes successful delivery of four prior stages, each with its own checkable metrics. This is the most honest way to hold the aspirational framing without crossing into overclaiming.

@@ -1,0 +1,16 @@
+Higher-dimensional solution thinking asks what happens when a problem is lifted into a representation of higher mathematical rank, where the original search space collapses under newly-exposed symmetries. This is not metaphorical. It is a concrete design principle that predates LRAM in the history of mathematics, from Grothendieck's schemes to representation-theoretic reformulations of Langlands' programme.
+
+\subsection{Tensorial Lifting}
+A problem stated over scalars can often be lifted to tensors, where symmetric group actions, permutation equivariance, and multilinearity collapse equivalence classes. LRAM uses a tensorial lifting module before Prajna compression: the tensor representation is passed to Prajna, and Prajna exploits the lifted symmetries to produce a smaller candidate set than a scalar Prajna would.
+
+\subsection{Categorical Lifting}
+A problem stated in set-theoretic terms can be lifted to a categorical statement, where functoriality and naturality provide additional structure. The Yoneda embedding suggests that a mathematical object is determined by its morphisms to all other objects, which motivates indexing the candidate set not by objects but by morphism classes.
+
+\subsection{Topos-Theoretic Lifting}
+A problem stated in classical logic can be lifted to a topos in which the ambient logic is intuitionistic. This reveals constructive content that is invisible in classical logic. For LRAM this is useful because the Lean validator in tier-3 is itself a form of intuitionistic engine, and a topos-lifted candidate is often easier to check in Lean than its classical counterpart.
+
+\subsection{Symmetry-Guided Oracle Design}
+Every symmetry of the lifted problem corresponds to a redundant axis in the candidate set. Quotienting by the symmetry yields a smaller effective candidate set $N_{\mathrm{eff}}$ that replaces $N$ in the Grover cost formula. The net search cost after lifting is the product of a classical compression factor and the quantum square-root factor.
+
+\subsection{Limitations of Lifting}
+Higher-dimensional lifting is not universally applicable. It requires that the problem admit a natural symmetry structure and that the lifting preserve decidability. When this fails, LRAM falls back to Prajna-only compression. This is a concrete example of graceful degeneration, and it is tracked by the diagnostic metrics defined in Section 12.

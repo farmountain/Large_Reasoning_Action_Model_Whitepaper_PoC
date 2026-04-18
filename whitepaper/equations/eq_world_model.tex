@@ -1,0 +1,3 @@
+\begin{equation}
+\mathcal{L}_{\mathrm{WM}}(\theta) \; = \; \mathbb{E}_{(s, a, r, s') \sim \mathcal{D}} \Bigl[ \; \| \hat{s}'_\theta(s, a) - s' \|^2 + \alpha \, (\hat{r}_\theta(s, a) - r)^2 + \gamma \, \mathrm{KL}\!\bigl(\pi_\theta(\cdot \mid s) \,\|\, \bar{\pi}_{\mathrm{teach}}(\cdot \mid s)\bigr) \; \Bigr]
+\end{equation}

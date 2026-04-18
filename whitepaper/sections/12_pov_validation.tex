@@ -1,0 +1,19 @@
+This section interprets the results of the proof-of-value workshop. The numbers below are produced by the pipeline orchestrator on the provided benchmarks. The full JSON log is available in \texttt{poc/results/pov\_metrics.json} and the LaTeX-rendered tables are included from \texttt{poc/results/pov\_interpretation.tex}.
+
+\subsection{Metrics}
+We report eight primary metrics. The oracle-query count counts calls to the bounded oracle. The search-space compression ratio is the ratio between the Prajna-compressed candidate set and the raw syntactic space. The proof-acceptance rate is the fraction of Grover-returned candidates accepted by the oracle. The tier-3 pass rate is the fraction of oracle-accepted candidates that also pass full tier-3 validation. The do-identifiability score is the average identifiability flag returned by DoWhy over the run. The circuit-attribution faithfulness is the Kendall tau correlation between circuit-patch importance and output logit change. The distillation loss delta is the reduction in distillation loss attributable to do-attention over baseline attention. The Reflexion convergence steps is the number of epochs required to reach the target rejection rate.
+
+\subsection{Ablation Study}
+We run four ablations. Removing Prajna increases the oracle-query count by a factor consistent with the loss of compression and reduces the tier-3 pass rate. Removing Grover increases the oracle-query count by a factor consistent with the loss of the quantum square-root advantage. Removing tier-3 trivially sets the pass rate to the oracle acceptance rate and exposes the system to formal errors downstream. Removing Reflexion slows convergence and increases the final plateau rejection rate.
+
+\subsection{Interpretation under First Principles}
+Each metric is read against its first-principles role. Compression speaks to representation. Oracle-query count speaks to search. Pass rate speaks to validation. The ablation results confirm that each tier contributes independently and non-redundantly to overall performance, matching the theoretical claim of Section 4.
+
+\subsection{Interpretation under Inversion}
+We apply the inversion analysis of Section 8 to each ablation result. The observed degradation patterns match the predicted failure modes, which provides evidence that the diagnostic monitors are correctly wired.
+
+\subsection{Interpretation under Higher Dimensions}
+On the toy benchmarks, higher-dimensional lifting yields additional compression beyond Prajna alone for the symmetry-rich family and no additional compression for the symmetry-poor family. This confirms the scope condition stated in Section 9.
+
+\subsection{Conclusion of the PoV}
+The workshop demonstrates that the LRAM architecture can be assembled from existing open-source components, that every equation corresponds to an implemented module, and that the ablation structure confirms the theoretical claims. The PoV does not claim to attack a genuine Millennium problem. It claims that the architecture is real, reproducible, and behaves as predicted on bounded benchmarks, and that it is therefore a credible foundation for the staged roadmap of Section 14.

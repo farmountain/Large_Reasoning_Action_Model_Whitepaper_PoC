@@ -1,0 +1,47 @@
+We formalise the LRAM architecture as a composition of typed operators acting on a problem space. Throughout this section, every equation is a standalone display block, suitable for pasting into Microsoft Word Equation Editor.
+
+\subsection{Notation}
+Let $\Sigma$ denote the raw syntactic problem space, $\mathcal{A}$ the abstract representation space produced by Prajna, $\mathcal{C} \subseteq \mathcal{A}$ a bounded candidate set, $\mathcal{S} \subseteq \mathcal{C}$ the set of candidates accepted by the oracle, and $\mathcal{V}$ the set of candidates that pass full tier-3 validation.
+
+\subsection{Prajna Abstraction Operator}
+The Prajna operator maps a raw problem statement to a compressed abstract representation that preserves the invariants relevant to solution.
+\input{equations/eq_prajna}
+
+\subsection{Bounded Candidate Oracle}
+The oracle is a predicate that, for each candidate in the bounded set, decides whether the candidate is accepted by a classical efficient check.
+\input{equations/eq_oracle}
+
+\subsection{Grover Candidate Amplification}
+Given a bounded candidate set of size $N$ and a set of accepted candidates of size $M$, Grover amplitude amplification delivers an accepted candidate after a number of oracle queries proportional to the square root of $N/M$.
+\input{equations/eq_grover}
+
+\subsection{Three-Tier Acceptance Probability}
+The overall probability that a candidate returned by the Grover stage survives tier-3 validation decomposes multiplicatively into the Prajna faithfulness, the oracle recall, and the validator soundness.
+\input{equations/eq_three_tier}
+
+\subsection{Do-Attention}
+Do-attention replaces conditional attention with interventional attention, computing the key-value score under a structural intervention $\mathrm{do}(x)$ rather than a mere observation $x$.
+\input{equations/eq_do_attention}
+
+\subsection{World-Model Distillation Loss}
+The LRAM world model is distilled from teacher trajectories by a Bellman-consistent objective that combines next-state prediction, reward prediction, and a Kullback-Leibler term aligning the student policy to the teacher ensemble.
+\input{equations/eq_world_model}
+
+\subsection{Teacher-Student Distillation Objective}
+The student model is trained by minimising a composite loss that combines a Kullback-Leibler term against each teacher in the ensemble, an action-value term against a reference Q-function, and a regularisation term.
+\input{equations/eq_distillation}
+
+\subsection{Reflexion Update Rule}
+The Reflexion outer loop updates an episodic memory by reflecting on failed trajectories and appending textual corrections that modulate future policies.
+\input{equations/eq_reflexion}
+
+\subsection{Convergence Bound for LRAM}
+Under the bounded-oracle and faithfulness assumptions, the expected number of oracle queries required to find an accepted and validated candidate is bounded by a closed-form expression.
+\input{equations/eq_convergence}
+
+\subsection{Undecidability Boundary}
+We state the formal boundary beyond which no finite proof-search procedure can guarantee termination.
+\input{equations/eq_undecidability}
+
+\subsection{Summary of the Architecture}
+The composition of the operators is a pipeline: a raw problem flows through Prajna into a compressed abstract representation; the compressed representation indexes a bounded candidate set; Grover amplifies the subset accepted by the oracle; tier-3 validates by formal, causal, and circuit checks; Reflexion writes any failure into episodic memory. The inner loop is quantum; the outer loop is classical and reflexive.
