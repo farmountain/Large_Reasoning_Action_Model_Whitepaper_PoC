@@ -1,0 +1,25 @@
+The Paul-Elder framework invites a reasoner to examine eight elements of thought. We apply each element explicitly to the LRAM claim.
+
+\subsection{Purpose}
+The purpose of LRAM is to raise the probability of discovering valid, formally checkable proofs and validated action policies for a class of problems in which abstraction, bounded search, and validation can each be expressed as distinct computational stages.
+
+\subsection{Question at Issue}
+The question is precisely stated: under which assumptions on problem representation, oracle design, and computational budget does the composition of Prajna abstraction, Grover amplification, and three-tier validation yield a strictly stronger proof-discovery procedure than any of its components in isolation?
+
+\subsection{Information}
+Relevant information includes the mathematics of amplitude amplification, the published performance of large language models on formal mathematics benchmarks such as miniF2F, the state of the art in mechanised proof libraries such as mathlib, established results on Gödel-style undecidability, and empirical results from mechanistic interpretability. We use these inputs to ground every modelling choice.
+
+\subsection{Concepts}
+The central concepts are the Prajna abstraction operator, the bounded candidate set, the Grover oracle, the three-tier validator, the do-intervention, the world model, the teacher-student distillation objective, and the Reflexion update rule. Each concept is given a precise formal definition in Section 5.
+
+\subsection{Assumptions}
+We identify explicitly the assumptions on which the LRAM convergence analysis depends: the existence of a bounded candidate set after Prajna compression, the existence of an efficient proof oracle on that set, the boundedness of distillation loss under the teacher ensemble, and the availability of a sound formal verifier. These assumptions are restated as formal assumptions in Section 5 and their failure modes are enumerated in Section 8.
+
+\subsection{Inferences}
+Given the assumptions, we infer the convergence bound and the acceptance probability stated in the formal section. We also infer, by inversion, that each failure mode in Section 8 corresponds to a missing or violated assumption.
+
+\subsection{Implications}
+If the assumptions hold for a given target problem, LRAM achieves a quadratic speedup in oracle queries over classical brute force, multiplied by a classical compression factor contributed by Prajna and a further compression factor contributed by higher-dimensional lifting. If any of the assumptions fails, LRAM degenerates gracefully to the capability of its strongest remaining tier rather than catastrophically to zero capability.
+
+\subsection{Point of View}
+We adopt the point of view of an engineer and mathematician trying to build an honest, reproducible research engine, not a publicity-oriented point of view claiming an imminent solution of open problems. This point of view is declared explicitly because it shapes every design choice and every reported metric.

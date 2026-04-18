@@ -1,0 +1,16 @@
+A first-principles decomposition asks what proof discovery fundamentally is, independent of any specific tool. We identify four irreducible primitives.
+
+\subsection{Representation}
+Every mathematical problem must be represented in some formal or semi-formal syntax before any algorithm can operate on it. The representation determines what can be expressed, what can be checked, and what can be compressed. Without a well-chosen representation, no downstream stage can perform useful work.
+
+\subsection{Compression}
+Given a representation, the space of syntactically well-formed candidate proofs is typically astronomically larger than the space of semantically meaningful candidates. Compression is the act of moving from a vast syntactic space to a smaller candidate space indexed by invariants, symmetries, dualities, reductions, and conceptual anchors. In our architecture, this is the role of the Prajna operator.
+
+\subsection{Search}
+Once a bounded candidate space exists and an efficient oracle can evaluate candidates, search is the act of locating a candidate accepted by the oracle. Classical brute force requires at best a linear number of oracle queries in the size of the candidate space. Quantum amplitude amplification lowers this cost to the square root of the candidate-space size for an unstructured oracle. This is the role of the Grover layer.
+
+\subsection{Validation}
+A candidate accepted by the search oracle is only a candidate. Validation is the act of determining whether the candidate is a genuine proof in a specified formal system, whether its causal structure is identifiable, and whether the internal computation that produced it can be inspected and trusted. This is the role of the three-tier validator.
+
+\subsection{Why These Four are Sufficient and Necessary}
+Without representation there is nothing to operate on. Without compression the search space is intractable. Without search nothing is found. Without validation nothing is trusted. Any architecture with fewer than these four primitives is incomplete. Any architecture with more than these four primitives can be refactored such that the extras are implementation details of one of the four. This justifies our choice of LRAM as a four-primitive architecture with tier-3 validation refactored internally into formal, causal, and circuit sub-validators.

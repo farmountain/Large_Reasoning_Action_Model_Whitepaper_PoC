@@ -1,0 +1,29 @@
+Reflexion-Enhanced Outer Loop
+==============================
+
+  [trajectory tau_t]
+         |
+         v
+  [tier-3 validator v_t]
+         |
+    v_t = 1 ---------> accept candidate, update world model
+         |
+    v_t = 0
+         |
+         v
+  [Reflect(tau_t, y_t, v_t)] --> textual critique r_t
+         |
+         v
+  [episodic memory M_{t+1}] = Decay(M_t, rho) U {r_t}
+         |
+         v
+  [prior update] --> Prajna re-weights candidate distribution
+         |
+         v
+  [teacher weight update] --> teacher ensemble weights w_k adapted
+         |
+         v
+  [next trajectory tau_{t+1}]
+
+Convergence: loop terminates when rejection rate < epsilon
+             for N_plateau consecutive epochs.

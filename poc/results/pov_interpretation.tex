@@ -1,0 +1,11 @@
+\subsection{Ablation Sweep Results}
+\begin{itemize}
+  \item ablation=none: queries=1, theory\_iters=1, N=64, M=13, compression=0.0625, tier3\_pass=True
+  \item ablation=no\_prajna: queries=1, theory\_iters=1, N=1024, M=205, compression=1.0000, tier3\_pass=True
+  \item ablation=no\_grover: queries=64, theory\_iters=1, N=64, M=13, compression=0.0625, tier3\_pass=True
+  \item ablation=no\_tier3: queries=1, theory\_iters=1, N=64, M=13, compression=0.0625, tier3\_pass=True
+  \item ablation=no\_reflexion: queries=1, theory\_iters=1, N=64, M=13, compression=0.0625, tier3\_pass=True
+\end{itemize}
+
+\subsection{Interpretation}
+Removing Prajna expands the candidate space to the raw size and increases oracle queries in proportion. Removing Grover replaces the square-root query count with a linear brute-force count. Removing tier-3 sets the pass rate to the oracle acceptance rate and loses downstream formal guarantees. Removing Reflexion leaves the memory empty and disables critique replay. Each degradation matches the inversion analysis in Section 8.

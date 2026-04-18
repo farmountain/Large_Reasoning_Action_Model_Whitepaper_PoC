@@ -1,0 +1,19 @@
+We state the limits of the LRAM programme explicitly and without euphemism. The limits are not a disclaimer appended at the end; they are part of the architecture and are monitored by concrete diagnostics.
+
+\subsection{Grover is Only Quadratic}
+Grover amplitude amplification achieves a speedup of the square root of the candidate-space size, not an exponential reduction. On a candidate set of size $N = 10^{20}$, Grover reduces the expected query count to approximately $10^{10}$, which remains astronomically large. Grover only helps when Prajna has first compressed the space to a manageable scale. Without Prajna, Grover is impotent.
+
+\subsection{Oracle-Hardness}
+The Grover speedup assumes that the oracle is efficient. If the oracle that decides whether a candidate is a valid proof is itself as hard as the theorem being proved, the Grover stage provides no net benefit. Designing an efficient oracle is often the hardest part of a deep mathematical problem, and is not automated by the current LRAM architecture.
+
+\subsection{Gödel-Style Undecidability}
+For any sufficiently expressive formal system, there exist true statements that are not provable within the system. Any proof-search procedure, classical or quantum, that is restricted to derivations in a fixed formal system cannot guarantee termination on arbitrary inputs. LRAM does not and cannot evade this limit.
+
+\subsection{Lean Verifies but Does Not Invent}
+Proof assistants such as Lean with the mathlib library are powerful verification engines. They are not discovery engines. Their role in LRAM is to reject invalid candidates with high confidence, not to produce new mathematics. The discovery burden rests on the Prajna and teacher-ensemble components.
+
+\subsection{Distillation Cannot Exceed the Teachers on Novel Frontier Problems}
+If the teacher ensemble has never seen a class of problem, the student cannot distil reliable priors for that class. For genuinely frontier mathematics, the teacher ensemble is necessarily sparse. This places a ceiling on what distillation alone can contribute, and motivates the Reflexion loop as an active exploration mechanism.
+
+\subsection{Conclusion}
+The four limits above imply that LRAM is not a universal solver for open mathematics. They do not imply that LRAM is useless. They imply that LRAM is a convergence accelerator with well-defined monitors, and that the staged roadmap of Section 14 must respect each limit as a design constraint rather than an obstacle to be talked around.

@@ -1,0 +1,31 @@
+This section describes an end-to-end hands-on workshop that operationalises every equation and module in the whitepaper. The workshop is fully open-source and fully reproducible. It is organised as seven Jupyter notebooks plus a command-line end-to-end orchestrator.
+
+\subsection{Recommended Open-Source Tools}
+The workshop uses the following tools. Lean 4 with the mathlib library for formal verification. Qiskit with the Aer simulator for Grover amplification. PyTorch with Hugging Face Transformers for the student model and for teacher calls. TransformerLens for circuit probes and do-attention inspection. DoWhy and CausalNex for do-interventions and causal DAG identification. SymPy for symbolic manipulation inside the Prajna layer. Ray RLlib for action-policy and Q-value training. LangGraph for Reflexion loop orchestration. Weights and Biases for metric logging. Jupyter for notebook delivery.
+
+\subsection{Environment Setup}
+The workshop provides a conda environment file and a requirements file in the \texttt{poc/} directory. The environment pins versions of all dependencies. Setup consists of creating the environment, activating it, and running a smoke test from the command line.
+
+\subsection{Module 1: Prajna Abstraction}
+Notebook one implements the Prajna operator on a toy symbolic family. The learner observes that raw problem statements drawn from an arithmetic family compress to a bounded invariant representation by mining group-theoretic structure with SymPy. The learner produces a plot of the compression ratio as a function of problem size.
+
+\subsection{Module 2: Grover Bounded Search}
+Notebook two implements a bounded oracle over the candidate set returned by the Prajna stage. The oracle is encoded as a Qiskit quantum circuit. The learner runs the Grover iteration count derived in Section 5 and observes the empirical acceptance probability match the theoretical prediction to within the simulator's statistical noise.
+
+\subsection{Module 3: Tier-3 Validation}
+Notebook three wires together Lean 4, DoWhy, and TransformerLens into a single validator interface. The Lean bridge uses a sidecar subprocess that sends proof scripts and receives success-or-failure verdicts. The DoWhy stage identifies the causal effect and returns an identifiability flag. The TransformerLens stage patches activations and returns a circuit-attribution score. A candidate is accepted if and only if all three sub-validators report success.
+
+\subsection{Module 4: Causal Reasoning and World-Model Distillation}
+Notebook four trains the student world model with do-attention on trajectories drawn from a small teacher ensemble. The learner observes the distillation loss curves and the Bellman-consistency metric.
+
+\subsection{Module 5: Teacher-Student Distillation}
+Notebook five extends module four with the full teacher ensemble, including a large language model teacher, a large action model teacher, and a small specialist teacher. The learner observes the teacher-weight adaptation curve and the student's convergence.
+
+\subsection{Module 6: Reflexion Loop}
+Notebook six implements the Reflexion outer loop with LangGraph. Rejected candidates from the tier-3 validator trigger teacher calls that generate reflections. The learner observes the rejection-rate time series and the buffer-entropy time series.
+
+\subsection{Module 7: End-to-End Benchmark}
+Notebook seven runs the full pipeline on a toy Millennium-adjacent benchmark. We select a bounded zeta-zero-adjacent verification task and a bounded SAT family as two complementary benchmarks. The learner runs ablations that toggle Prajna, Grover, tier-3, and Reflexion individually. The notebook emits a JSON metrics file consumed by Section 12.
+
+\subsection{Orchestrator}
+The orchestrator \texttt{poc/src/pipeline.py} wraps the entire workshop behind a command-line interface. The orchestrator accepts a benchmark selector and an ablation specifier, executes the pipeline, and writes results to \texttt{poc/results/pov\_metrics.json} together with a LaTeX-rendered interpretation in \texttt{poc/results/pov\_interpretation.tex}.

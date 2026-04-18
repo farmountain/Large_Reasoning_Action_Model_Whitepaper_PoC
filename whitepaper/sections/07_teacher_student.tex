@@ -1,0 +1,16 @@
+LRAM is not trained in isolation. We propose a multi-teacher ensemble in which the teachers differ in architecture, scale, and inductive bias. Large language models contribute broad informal reasoning and mathematical intuition drawn from natural-language corpora. Large action models contribute grounded multi-step action sequences with executable feedback. Small specialist models contribute high-quality predictions on well-defined subdomains, such as symbolic integration, SAT solving, or elementary number theory.
+
+\subsection{Teacher Ensemble}
+The teacher ensemble is indexed by $k = 1, \ldots, K$. For each teacher the student observes trajectories consisting of state, action, and reward tuples. The Kullback-Leibler distillation objective stated in Section 5 is computed as a weighted sum over teachers, with weights that can be adapted online based on validation performance.
+
+\subsection{Student Architecture}
+The student LRAM consists of three stacked modules. The first is a Prajna encoder that compresses raw problem statements. The second is a transformer-style reasoner with do-attention layers. The third is an action head with a Q-value output for reinforcement-style learning. The student is small relative to the teachers, which makes it deployable for the PoC and preserves capacity for inference-time search.
+
+\subsection{Why Small Student, Large Teachers}
+A small student forces the distillation to preserve only transferable abstractions. A large teacher ensemble provides diverse reasoning modes and protects against teacher-specific biases. The architecture is intentionally reminiscent of knowledge-distillation pipelines from the literature, but with two distinguishing features: the do-attention layer, which makes the student causally aware, and the tier-3 validator, which gates the student's outputs before they contribute to training signal.
+
+\subsection{Curriculum}
+The curriculum begins with toy conjectures drawn from decidable fragments of first-order arithmetic. It proceeds to bounded SAT instances, then to formally stated lemmas in mathlib, then to Millennium-adjacent bounded fragments such as finite zeta-zero computations or restricted Navier-Stokes simulations. Each stage is gated by explicit validation criteria.
+
+\subsection{Reflexion Hook}
+Every training step that results in a rejected candidate is written to the Reflexion memory with a natural-language explanation of the rejection reason. This memory is replayed during subsequent training steps to increase the probability of avoiding similar failures.
