@@ -1,0 +1,18 @@
+We introduce the 8Q intelligence layer as the meta-generator that converts open-ended mathematical problems into structured search spaces with explicit verification predicates. The layer addresses the fundamental gap in the original three-tier stack: a systematic method for constructing the right search space and oracle before search begins.
+
+\subsection{The Oracle Construction Gap}
+\input{equations/eq_oracle_gap}
+
+The original LRAM stack---Prajna abstraction, Grover search, Tier-3 validation---assumed a bounded search space and an efficient oracle as given. The 8Q layer exists precisely to construct these two prerequisites. Without it, the question ``what is the candidate set?'' has no systematic answer, and the oracle predicate must be supplied by hand.
+
+\subsection{8Q as Search-Space and Oracle Constructor}
+The 8Q layer defines two operators over a problem $\mathcal{P}$:
+\input{equations/eq_8q_operator}
+
+The operator $\Phi_{8Q}$ builds the structured candidate space; $\Psi_{8Q}$ builds the evaluation and verification logic. Both are iteratively refined through the meta-reflection layer Q8.
+
+\subsection{8Q as Transformation Generator}
+Each of the eight intelligence dimensions generates a class of problem transformations rather than directly generating proof candidates. Q1 reformulates as optimisation or variational problems. Q2 shifts representations---algebra to geometry, discrete to continuous, local to global. Q3 relaxes or tightens constraints. Q4 factorises into subspaces. Q5 produces constructive mappings. Q6 defines new norms, metrics, and invariants. Q7 detects symmetries and conserved quantities. Q8 rewrites the objects, operations, and equivalence relations themselves---this is where new mathematics is born.
+
+\subsection{Why 8Q Upgrades the Stack}
+Without 8Q, the system has search and validation but no principled way to define the right representation or construct the oracle. With 8Q, the system gains dynamic search-space construction, dynamic oracle approximation, and iterative abstraction refinement. The system is elevated from a search engine to a self-evolving mathematical reasoning system. The correct positioning is therefore not ``quantum algorithm solves mathematics'' but rather: a meta-intelligence architecture that converts open-ended mathematical discovery into a self-refining search, abstraction, and validation system, with quantum acceleration applied only after structural compression.

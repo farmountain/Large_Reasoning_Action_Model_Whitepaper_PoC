@@ -1,0 +1,8 @@
+\begin{align}
+\mathcal{T}_{a:b} &= \mathcal{T}_b \circ \mathcal{T}_a \\[6pt]
+\mathfrak{T}^{(d+1)} &= \mathrm{TopB}\!\left(\bigcup_{\mathcal{T}\in\mathfrak{T}^{(d)}}\mathrm{Expand}(\mathcal{T})\right) \\[6pt]
+S(\mathcal{T}_{1:k}) &= \sum_{j=1}^{k}\omega_j\,S(\mathcal{T}_j \mid \mathcal{P}_{j-1}) - \chi\,k
+\end{align}
+\begin{equation}
+\mathfrak{W}_{t+1} = \mathrm{Prune}\!\Bigl(\mathrm{Expand}\!\bigl(\mathrm{Score}(\mathfrak{W}_t)\bigr)\Bigr), \qquad \text{stop when } \exists W_i : S_i > \tau_{\text{handoff}}
+\end{equation}
