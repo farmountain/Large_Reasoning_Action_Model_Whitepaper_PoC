@@ -33,7 +33,7 @@
     "reflexion_activated": true,
     "distill_final_total_loss": 0.04528481057133884,
     "distill_final_kl": 0.045283806975074274,
-    "wall_clock_seconds": 0.015
+    "wall_clock_seconds": 0.016
   },
   "no_grover": {
     "benchmark": "toy_conjectures",
@@ -51,7 +51,7 @@
     "reflexion_activated": true,
     "distill_final_total_loss": 0.04528481057133884,
     "distill_final_kl": 0.045283806975074274,
-    "wall_clock_seconds": 0.015
+    "wall_clock_seconds": 0.017
   },
   "no_tier3": {
     "benchmark": "toy_conjectures",
@@ -87,6 +87,6 @@
     "reflexion_activated": false,
     "distill_final_total_loss": 0.04528481057133884,
     "distill_final_kl": 0.045283806975074274,
-    "wall_clock_seconds": 0.015
+    "wall_clock_seconds": 0.016
   }
 }

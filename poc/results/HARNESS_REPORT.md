@@ -1,7 +1,7 @@
 # LRAM PoC/PoV Harness Report
 
-**Timestamp**: 2026-04-21T16:46:58Z  
-**Git SHA**: `1f156983fe`  
+**Timestamp**: 2026-04-21T16:53:55Z  
+**Git SHA**: `9b69990f49`  
 **Seed**: 42  
 **Env hash**: `bc7141bca22e`  
 
@@ -66,7 +66,7 @@ Fields in `pov_metrics.json` not yet referenced by any claim:
   "python_version": "3.13.13",
   "seed": 42,
   "env_hash": "bc7141bca22e",
-  "git_sha": "1f156983fe",
-  "timestamp_utc": "2026-04-21T16:46:58Z"
+  "git_sha": "9b69990f49",
+  "timestamp_utc": "2026-04-21T16:53:55Z"
 }
 ```
