@@ -1,0 +1,14 @@
+\begin{align}
+\Phi_{8Q}(\mathcal{P}) &= \mathcal{X} \quad \text{(search space constructor)} \\
+\Psi_{8Q}(x, \mathcal{P}) &= V(x) \quad \text{(oracle/verifier constructor)}
+\end{align}
+\begin{align}
+Q_1 &: \max_{x \in \mathcal{X}} U(x) & \text{(Optimisation)} \\
+Q_2 &: \mathcal{R} : \mathcal{P} \rightarrow \mathcal{Z} & \text{(Abstraction)} \\
+Q_3 &: C(x) = 0 & \text{(Constraint encoding)} \\
+Q_4 &: \mathcal{X} = \{x \mid C(x)=0\} & \text{(Space structuring)} \\
+Q_5 &: x_{t+1} = T(x_t) & \text{(Execution)} \\
+Q_6 &: M(x) \in \mathbb{R} & \text{(Measurement)} \\
+Q_7 &: \theta_{t+1} = \theta_t + \Delta(\text{feedback}) & \text{(Learning)} \\
+Q_8 &: (\mathcal{R}, C, T, M) \rightarrow \text{self-modify} & \text{(Meta-reflection)}
+\end{align}

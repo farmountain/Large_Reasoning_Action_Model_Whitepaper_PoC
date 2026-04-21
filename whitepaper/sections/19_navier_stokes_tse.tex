@@ -1,0 +1,112 @@
+We apply the Transformation Space Engine to the Navier-Stokes global regularity problem as a worked example. This is not a claim of solution. It is a demonstration that TSE produces a structured, formally specified search object from what begins as an open-ended conjecture.
+
+\subsection{Problem Ingestion}
+
+The Navier-Stokes problem is ingested as the tuple
+\[
+\mathcal{P}_{NS} = \bigl(u_0,\; \nu,\; \partial_t u + (u\cdot\nabla)u + \nabla p - \nu\Delta u = 0,\; \nabla\cdot u = 0\bigr),
+\]
+where $u_0 \in C^\infty(\mathbb{R}^3)$ is a smooth, rapidly decaying initial velocity field, $\nu > 0$ is viscosity, and the target property is $\Gamma = \text{global smooth existence}$: for all $t \geq 0$, a unique smooth solution $u(\cdot, t)$ exists with $\|u(\cdot,t)\|_{H^k} < \infty$ for all $k$.
+
+The PIM structural signature identifies $\mathcal{P}_{NS}$ as: nonlinear parabolic PDE, quadratic nonlinearity, divergence-free constraint, scaling symmetry under $(u, p, t, x) \mapsto (\lambda u, \lambda^2 p, \lambda^{-2} t, \lambda^{-1} x)$, known energy identity $\frac{d}{dt}\|u\|_{L^2}^2 + 2\nu\|\nabla u\|_{L^2}^2 = 0$, and open complexity class.
+
+\subsection{Representation Lattice}
+
+RLM constructs a seven-node representation lattice $\mathcal{L}_{NS}$:
+
+\begin{enumerate}
+\item \textbf{Physical space.} The native formulation $(u, p)$ on $\mathbb{R}^3 \times [0,\infty)$.
+\item \textbf{Energy formulation.} Expressed via $E(t) = \frac{1}{2}\|u\|_{L^2}^2$ and the enstrophy $\mathcal{E}(t) = \frac{1}{2}\|\omega\|_{L^2}^2$ where $\omega = \nabla \times u$.
+\item \textbf{Vorticity formulation.} The vorticity equation $\partial_t \omega + (u\cdot\nabla)\omega = (\omega\cdot\nabla)u + \nu\Delta\omega$, eliminating pressure.
+\item \textbf{Spectral formulation.} Via Fourier coefficients $\hat{u}(k,t)$, converting convolution to pointwise multiplication in frequency space.
+\item \textbf{Scale-decomposition formulation.} Littlewood-Paley decomposition $u = \sum_j \Delta_j u$, separating contributions by dyadic frequency bands.
+\item \textbf{Attractor formulation.} For bounded domains, expressed as dynamics on the global attractor of the associated dissipative dynamical system.
+\item \textbf{Weak/strong formulation.} The Leray weak solution framework, trading regularity for existence, and the Serrin-type strong solution framework.
+\end{enumerate}
+
+Each node in $\mathcal{L}_{NS}$ carries its known tractability properties, equivalence certificates relative to adjacent nodes, and known partial results (global existence of weak solutions is known; strong solutions exist locally; Serrin conditions imply regularity).
+
+\subsection{Six Transformation Families}
+
+TGM instantiates six transformation families specialised to $\mathcal{P}_{NS}$:
+
+\textbf{Vorticity transform $\mathcal{T}_\omega$.} Maps the velocity formulation to the vorticity formulation. Eliminates pressure, exposes the vortex stretching term $(\omega\cdot\nabla)u$ as the critical nonlinearity, and opens access to geometric arguments about vortex tube concentration.
+
+\textbf{Energy transform $\mathcal{T}_E$.} Passes to the energy-enstrophy phase plane. The known energy identity closes the $L^2$ norm; the open question reduces to whether enstrophy can blow up. This transforms a PDE regularity question into a question about the behaviour of a trajectory in $(E, \mathcal{E})$ space.
+
+\textbf{Spectral transform $\mathcal{T}_F$.} Applies the Fourier transform. The nonlinear term becomes a convolution in frequency space. The problem of controlling $\|u\|_{H^k}$ becomes the problem of preventing energy cascade to arbitrarily high frequencies from overwhelming the $\nu|k|^2$ dissipation.
+
+\textbf{Scale-splitting transform $\mathcal{T}_S$.} Decomposes $u$ into low-frequency and high-frequency parts. The low-frequency part is controlled by known estimates; the question reduces to whether the high-frequency part can be controlled uniformly by the dissipation. This is the form in which many conditional regularity results are stated.
+
+\textbf{Blow-up rescaling transform $\mathcal{T}_B$.} Assumes a potential singularity at time $T^*$ and rescales: $\tilde{u}(y,s) = (T^*-t)^{1/2} u(x,t)$ where $y = x/(T^*-t)^{1/2}$, $s = -\log(T^*-t)$. The blow-up question is reformulated as the existence of a non-trivial self-similar profile for the rescaled equation.
+
+\textbf{Bounded-domain surrogate transform $\mathcal{T}_R$.} Restricts to a periodic box $\mathbb{T}^3$ or a bounded domain with appropriate boundary conditions. The attractor formulation becomes available; finite-dimensional approximation bounds apply. Results on $\mathbb{T}^3$ often transfer back to $\mathbb{R}^3$ via localisation arguments.
+
+\subsection{The Real Search Object}
+
+TSE does not search for a proof directly. It searches for a transformation $\mathcal{T}^*$ such that the transformed problem $\mathcal{T}^*(\mathcal{P}_{NS})$ admits a \emph{coercive control quantity}: a functional $Q_{\mathcal{T}}(t)$ depending on $u$ in the $\mathcal{T}$-representation such that either
+\[
+\sup_{t \geq 0} Q_{\mathcal{T}}(t) < \infty \quad \text{(global bound)}
+\]
+or
+\[
+\frac{d}{dt} Q_{\mathcal{T}}(t) \leq -c\, Q_{\mathcal{T}}(t) + f(t) \quad \text{(controlled decay)}
+\]
+where $f$ is integrable. If such a $Q_{\mathcal{T}}$ exists and controls the relevant Sobolev norm, global regularity follows. If no such $Q_{\mathcal{T}}$ is found, the blow-up rescaling world $\mathcal{T}_B$ attempts to certify the existence of a self-similar singularity, which would establish the negative resolution.
+
+\subsection{Four Candidate Worlds}
+
+HWM maintains four candidate worlds:
+
+\textbf{World $W_1$: Energy-control world.} Chain $\mathcal{T}_E \circ \mathcal{T}_\omega$. Candidate control quantity: a weighted combination of enstrophy and a higher-order norm. Blocked by the vortex stretching term, which prevents closing the enstrophy inequality without additional geometric input. Current score: moderate compression, low oracle tractability.
+
+\textbf{World $W_2$: Vorticity-concentration world.} Chain $\mathcal{T}_\omega \circ \mathcal{T}_S$. Candidate control quantity: the $L^\infty$ norm of vorticity, or the direction field of vorticity following the geometric approach. Current score: high structural insight; oracle requires checking a geometric condition on vortex lines; moderate tractability.
+
+\textbf{World $W_3$: Frequency-cascade world.} Chain $\mathcal{T}_F \circ \mathcal{T}_S$. Candidate control quantity: the spectral energy flux across dyadic bands. Current score: high compression in the spectral domain; oracle requires bounding the nonlinear energy transfer; tractable for numerical but not analytical verification at present.
+
+\textbf{World $W_4$: Self-similar singularity world.} Chain $\mathcal{T}_B \circ \mathcal{T}_R$. Candidate object: a Type-I blow-up profile. Self-similar profiles form a finite-dimensional manifold under symmetry reduction; oracle is the system of ODEs for the self-similar profile. This world targets the negative resolution.
+
+\subsection{NS-Specialised Scoring Function}
+
+The TSE objective specialises to Navier-Stokes as:
+\[
+S = w_1 S_{\text{coercive}} + w_2 S_{\text{scale-separation}} + w_3 S_{\text{blowup-detect}}
+     + w_4 S_{\text{formalizable}} - w_5 S_{\text{non-equivalence}} - w_6 S_{\text{oracle-hardness}}
+\]
+where $S_{\text{coercive}}$ measures how close the transformed problem is to admitting a closed coercive estimate; $S_{\text{scale-separation}}$ rewards representations that cleanly separate the controlled low-frequency part from the potentially dangerous high-frequency part; $S_{\text{blowup-detect}}$ rewards representations in which a singularity would be detectable by a computationally feasible check; $S_{\text{formalizable}}$ rewards representations for which a formal proof kernel exists; $S_{\text{non-equivalence}}$ penalises transformations that risk losing solutions; and $S_{\text{oracle-hardness}}$ penalises transformations whose verification predicate is itself as hard as the original problem.
+
+\subsection{Four-Stage Oracle}
+
+OBM assembles a four-stage composite oracle $V = V_1 \cdot V_2 \cdot V_3 \cdot V_4$:
+
+\textbf{$V_1$: Symbolic admissibility.} Checks that the candidate control quantity $Q_{\mathcal{T}}$ is well-defined, dimensionally consistent, and expressible in the formal type system. Cost: $O(1)$ symbolic operations.
+
+\textbf{$V_2$: Local analytic consistency.} Verifies that the proposed differential inequality for $\frac{d}{dt}Q_{\mathcal{T}}$ is locally correct by checking all term-by-term estimates up to a specified order. Cost: polynomial in the number of terms.
+
+\textbf{$V_3$: Surrogate verification.} Runs a high-resolution numerical simulation on the periodic torus $\mathbb{T}^3$ and checks whether $Q_{\mathcal{T}}$ behaves as predicted over $[0, T_{\text{sim}}]$. Cost: $O(N^3 \log N)$ per time step for an $N^3$ grid.
+
+\textbf{$V_4$: Formal proof kernel.} Submits the candidate coercive estimate to a Lean proof assistant kernel for term-level verification. Cost: exponential in the worst case, polynomial for well-structured estimates.
+
+The composite oracle passes a candidate if and only if all four stages accept. Cheap filters ($V_1$, $V_2$) eliminate most candidates before expensive verification ($V_3$, $V_4$) is invoked.
+
+\subsection{Where Grover Fits}
+
+Grover search is applied only after TSE and SSR have produced a bounded candidate set. In the Navier-Stokes context, this occurs when one of the four worlds reaches $S_i > \tau_{\text{handoff}}$. At that point, the candidate set $\mathcal{X}_{NS}'$ is a finite (or finitely parameterised) family of control quantity ans\"{a}tze---for example, all quadratic functionals of $u$ expressible in a given spectral basis up to degree $d_{\max}$. Grover search then amplifies the probability of finding an ans\"{a}tz that passes $V$, with quadratic speedup over classical enumeration. Without TSE, this candidate set does not exist and Grover cannot be applied.
+
+\subsection{Why NS Is Instructive for This Approach}
+
+The Navier-Stokes problem is in one sense harder than P vs.\ NP for the LRAM approach: the native search space is infinite-dimensional and the oracle is not obviously efficient. In another sense it is more tractable: there is a rich lattice of known partial results, a well-developed functional-analytic framework, and clear structural signatures that constrain the transformation search. Every significant regularity result in the Navier-Stokes literature corresponds to a transformation template in TSE's library. The approach does not claim to surpass the work of analysts; it claims to systematise the search over that body of work and to make explicit what representation is being assumed, what oracle is being invoked, and what structural compression has been achieved. That systematisation is the prerequisite for any automated or quantum-accelerated contribution.
+
+\subsection{Final Workflow}
+
+The complete Navier-Stokes pipeline under LRAM is:
+\[
+\mathcal{P}_{NS}
+\;\rightarrow\; \mathcal{L}_{NS}
+\;\rightarrow\; \mathfrak{T}_{NS}
+\;\rightarrow\; \{W_1, W_2, W_3, W_4\}
+\;\rightarrow\; \mathcal{X}_{NS}'
+\;\rightarrow\; V
+\;\rightarrow\; \text{proof/contradiction search}
+\]
+At each arrow, the system either advances to the next stage or feeds failure information back to the previous stage via RTL. The process terminates either with a validated coercive estimate (positive resolution), a certified self-similar blow-up profile (negative resolution), or an exhausted beam with a structured record of what was tried.

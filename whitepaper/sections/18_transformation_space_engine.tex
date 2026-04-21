@@ -1,0 +1,62 @@
+The Transformation Space Engine (TSE) is the component that searches the space of problem transformations rather than the space of solutions. Where Grover search operates on a fixed candidate set, TSE dynamically constructs that candidate set by finding the best way to reframe the problem before search begins. The central claim is that the choice of representation determines tractability more than the choice of search algorithm.
+
+\subsection{End-to-End Objective}
+\input{equations/eq_tse_objective}
+
+The scoring function $S(\mathcal{T} \mid \mathcal{P})$ rewards transformations that compress the problem description, shrink the search space, make the oracle easier to build, and yield structural insight, while penalising transformations that add unjustified complexity or introduce hallucinated structure. The five subscores are defined formally below.
+
+\subsection{Subscore Definitions}
+\input{equations/eq_tse_scoring}
+
+$S_{\text{compress}}$ measures the fractional reduction in Kolmogorov complexity of the problem description. $S_{\text{tractable}}$ measures the fractional reduction in the logarithmic size of the search space. $S_{\text{verifiable}}$ is the improvement in the cost of building a sound verifier for the transformed problem relative to the original. $S_{\text{distortion}}$ is the risk that the transformation breaks semantic equivalence---a penalty term. $S_{\text{oracle}}$ is the Shannon entropy of the verifier, measuring its information content and thus its discriminating power.
+
+\subsection{The Nine TSE Modules}
+
+\textbf{Problem Ingestion Module (PIM).} PIM parses the raw problem statement $\mathcal{P}$ into a typed symbolic structure: a tuple $(\mathcal{D}, \mathcal{O}, \mathcal{C}, \Gamma)$ where $\mathcal{D}$ is the domain of objects, $\mathcal{O}$ is the set of operations, $\mathcal{C}$ is the constraint set, and $\Gamma$ is the target property. PIM also extracts the representation lattice $\mathcal{L}_{\mathcal{P}}$---the partial order of known equivalent or related representations.
+
+\textbf{Representation Lattice Module (RLM).} RLM maintains and extends $\mathcal{L}_{\mathcal{P}}$ by querying the transformation library for representations known to be equivalent or related to those already in the lattice. It assigns a tractability score to each node in the lattice based on known complexity results for that representation class.
+
+\textbf{Transformation Generation Module (TGM).} TGM generates candidate transformations $\mathcal{T}_i$ by instantiating transformation templates from the library with parameters drawn from the current problem context. Templates include: change of variables, duality maps, symmetry reductions, constraint relaxations, regularisation embeddings, scale decompositions, and spectral liftings.
+
+\textbf{Transformation Evaluation Module (TEM).} TEM evaluates each candidate transformation using the scoring function $S(\mathcal{T} \mid \mathcal{P})$ defined above. Evaluation combines symbolic analysis (checking well-definedness, domain compatibility, and equivalence certificates) with heuristic estimates of compression and oracle cost.
+
+\textbf{Hypothesis World Module (HWM).} HWM maintains a portfolio of candidate worlds $\{W_1, W_2, \ldots, W_k\}$, each consisting of a transformation chain $\mathcal{T}_{1:m}$ applied to $\mathcal{P}$ together with a candidate proof strategy and an estimated oracle. Worlds compete for computational budget via a bandit allocation policy.
+
+\textbf{Search Space Reducer (SSR).} SSR takes the highest-scoring world $W^*$ from HWM and applies the associated transformation chain to produce a compressed problem $\mathcal{P}' = \mathcal{T}^*(\mathcal{P})$. It then constructs the bounded candidate set $\mathcal{X}$ for downstream search by enumerating or sampling the feasible region of $\mathcal{P}'$.
+
+\textbf{Oracle Builder Module (OBM).} OBM constructs the verification predicate $V : \mathcal{X} \rightarrow \{0,1\}$ for the transformed problem. It assembles $V$ as a composition of fast symbolic checks, approximate analytic tests, and, where available, calls to a formal proof kernel. The oracle complexity is tracked and fed back into $S_{\text{oracle}}$.
+
+\textbf{Score and Handoff Module (SHM).} SHM monitors the portfolio score across all active worlds and triggers handoff to the search layer when any world $W_i$ achieves $S_i > \tau_{\text{handoff}}$, the configurable threshold signalling that the problem is sufficiently structured for candidate search to proceed efficiently.
+
+\textbf{Reflexive Transfer Loop (RTL).} RTL writes failed transformation attempts, their failure signatures, and the associated problem features into persistent episodic memory. This record is used to bias future TGM instantiation away from known-failed templates and toward templates with positive transfer history on structurally similar problems.
+
+\subsection{Control Algorithm}
+
+The master loop executes as follows. PIM ingests $\mathcal{P}$ and initialises $\mathcal{L}_{\mathcal{P}}$. RLM populates the lattice with all known equivalent representations. TGM generates the first beam of candidate transformations. TEM scores them. HWM initialises the world portfolio with the top-$B$ worlds. The engine then enters the main iteration: expand each world by one transformation step via TGM; score the expanded worlds via TEM; prune to the top-$B$ via HWM; check the handoff condition via SHM. If no world exceeds $\tau_{\text{handoff}}$ within the depth budget $d_{\max}$, RTL logs the failure and returns the best available world. If a world exceeds $\tau_{\text{handoff}}$, SSR and OBM produce $(\mathcal{X}, V)$ and pass them to the search layer.
+
+\subsection{Transformation Composition and World Portfolio}
+\input{equations/eq_transformation_composition}
+
+Composition is left-to-right: $\mathcal{T}_{a:b}$ applies $\mathcal{T}_a$ first, then $\mathcal{T}_b$. The depth-$d$ library $\mathfrak{T}^{(d)}$ is built by expanding the depth-$(d-1)$ beam. The composite score discounts chains by a factor $\chi$ per step to penalise unnecessary length. The world portfolio update rule terminates as soon as any world crosses the handoff threshold $\tau_{\text{handoff}}$.
+
+\subsection{Six Core Algorithms}
+
+\textbf{Structural Signature Extraction.} Each problem $\mathcal{P}$ is hashed into a structural signature $\sigma(\mathcal{P})$ capturing its algebraic type, symmetry group, constraint topology, and known complexity class. Signatures are used for retrieval from the transformation library and for cross-problem transfer.
+
+\textbf{Beam Search over Transformation Chains.} TGM and TEM jointly execute beam search of width $B$ over transformation chains of depth up to $d_{\max}$. At each depth, the top-$B$ chains by composite score are retained; the rest are pruned. This gives TSE a polynomial-time guarantee relative to the library size and beam width.
+
+\textbf{World Portfolio Management.} HWM allocates computational budget across worlds using an upper-confidence-bound bandit policy. Worlds with high score variance receive more budget; worlds with persistent low scores are pruned from the portfolio.
+
+\textbf{Oracle Hardness Estimation.} OBM estimates oracle complexity before committing to a world by running the verifier on a small synthetic sample drawn from $\mathcal{X}$. If the empirical cost per query exceeds a configurable threshold, OBM flags the world as oracle-hard and feeds this back to TEM as a negative score adjustment.
+
+\textbf{Composition Search.} For long transformation chains, TSE applies dynamic programming over the chain structure: the optimal chain to depth $d$ is computed by extending the optimal chain to depth $d-1$ by one step, using the composite score as the Bellman value.
+
+\textbf{Reflexive Failure Mining.} RTL analyses failed transformation attempts by clustering their failure signatures and identifying the structural features of $\mathcal{P}$ that predict failure for each template class. This produces a failure predictor that TGM uses to suppress low-probability-of-success templates before evaluation.
+
+\subsection{Data Model}
+
+Each problem $\mathcal{P}$ in the TSE data model is represented as a tuple $(\sigma, \mathcal{L}, \mathfrak{T}_{\text{active}}, \mathfrak{W}, h)$ where $\sigma$ is the structural signature, $\mathcal{L}$ is the representation lattice, $\mathfrak{T}_{\text{active}}$ is the current active transformation beam, $\mathfrak{W}$ is the world portfolio, and $h$ is the episodic history of transformation attempts. Each world $W_i \in \mathfrak{W}$ stores its transformation chain, its compressed problem $\mathcal{P}'_i$, its candidate set $\mathcal{X}_i$, its oracle $V_i$, and its current score $S_i$.
+
+\subsection{Honest Limitation}
+
+TSE does not guarantee discovery of the right transformation for an arbitrary hard problem. It turns the search for new mathematics from a mystical event into a structured beam search over a formal transformation library. The quality of the library, the expressiveness of the representation language, and the depth budget together determine what TSE can find. A problem whose solution requires a transformation not in the library, or a chain longer than $d_{\max}$, will not be solved. The correct expectation is: TSE dramatically increases the probability of finding a tractable representation for problems that are hard in their native form but tractable in some reachable transformed form, while providing a principled failure mode---exhausted beam---rather than an unbounded search.

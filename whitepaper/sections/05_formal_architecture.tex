@@ -45,3 +45,14 @@ We state the formal boundary beyond which no finite proof-search procedure can g
 
 \subsection{Summary of the Architecture}
 The composition of the operators is a pipeline: a raw problem flows through Prajna into a compressed abstract representation; the compressed representation indexes a bounded candidate set; Grover amplifies the subset accepted by the oracle; tier-3 validates by formal, causal, and circuit checks; Reflexion writes any failure into episodic memory. The inner loop is quantum; the outer loop is classical and reflexive.
+
+\subsection{Full Pipeline Summary}
+\input{equations/eq_full_pipeline}
+
+The complete LRAM pipeline integrates six stages. The 8Q intelligence layer receives the raw problem $\mathcal{P}$ and applies eight dimensions of structured questioning---optimisation, abstraction, constraint encoding, space structuring, execution, measurement, learning, and meta-reflection---to produce a questioned structure: a typed symbolic representation with explicit objects, operations, constraints, and target property. Prajna abstraction then compresses this structure into a family of compact abstract representations $\{\mathcal{P}'_1, \mathcal{P}'_2, \ldots\}$, each preserving the invariants necessary for solution while discarding irrelevant syntactic complexity.
+
+The Transformation Space Engine (TSE) searches the space of problem transformations, evaluating each compressed form against the scoring objective and maintaining a portfolio of candidate worlds. When a world exceeds the handoff threshold, the Search Space Reducer (SSR) constructs the bounded candidate set $\mathcal{X}$ and the Oracle Builder Module (OBM) constructs the verification predicate $V$. This pair $(\mathcal{X}, V)$ is the structured input that enables the next stage.
+
+Grover amplitude amplification (or classical search when quantum hardware is unavailable or when $|\mathcal{X}|$ is small) searches $\mathcal{X}$ using $V$ as the oracle, delivering an accepted candidate $x^*$ in $O(\sqrt{|\mathcal{X}|/M})$ oracle queries where $M$ is the number of solutions. Finally, Tier-3 validation subjects $x^*$ to the full three-layer check---formal proof verification, causal consistency, and circuit-level soundness---before the result is accepted.
+
+The pipeline is self-refining: failures at any stage propagate back through the Reflexion loop, updating episodic memory and biasing future transformation selection and oracle construction. The key architectural insight is that quantum speedup applies only after the problem has been structurally compressed by 8Q, Prajna, and TSE. Attempting Grover search on the raw problem $\mathcal{P}$ without this compression pipeline provides no practical advantage and may provide none at all.

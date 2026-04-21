@@ -1,0 +1,25 @@
+\subsection{Why Absolute Guarantees Are Unavailable}
+No finite proof-search procedure can guarantee discovery of the right transformation for arbitrary hard mathematics. Two deep reasons are decisive: there is no universal decision procedure for provability across sufficiently rich formal systems, and sufficiently expressive consistent systems contain true statements not provable within the system.
+
+\subsection{Four Levels of Weaker Guarantee}
+The correct target is relative completeness rather than absolute guarantee.
+
+\textbf{Coverage guarantee.} If the transformation library contains at least one transformation chain mapping the original problem into a tractable equivalent, and search over the library is complete, TSE is guaranteed to find it. This is a guarantee relative to the library.
+
+\textbf{Best-in-class guarantee.} Restricting TSE to a finite set of templates allows guaranteed discovery of the best transformation in that family by beam search with admissible pruning.
+
+\textbf{Eventual-discovery guarantee under a universal language.} If the needed transformation is finitely describable in a recursively enumerable proof language and search is fair, eventual discovery is guaranteed at the cost of potentially infeasible time.
+
+\textbf{Domain-limited guarantee.} For a specific mathematical domain, a transformation-complete basis can sometimes be designed, giving real guarantees for that domain.
+
+\subsection{Relative Completeness Formalism}
+\input{equations/eq_relative_completeness}
+
+\subsection{Three Certificate Layers}
+The strongest practical design equips TSE with three certificate layers: a transformation certificate showing equivalence preservation; a search completeness certificate showing domain coverage; and an oracle certificate showing verifier soundness.
+
+\subsection{The Research Programme}
+The correct research programme implied by relative completeness is: pick one domain, define a formal representation language, define a small primitive transformation algebra, prove closure/completeness for that domain, build equivalence certificates for every transform, and only then extend coverage. This is how strong automated reasoning systems are built: not for all mathematics, but for all problems in a formally characterised subclass.
+
+\subsection{The Right Slogan}
+You cannot guarantee the right transformation globally. You can guarantee not missing it inside a transformation-complete formal universe. That is the honest frontier.
