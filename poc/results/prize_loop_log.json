@@ -1,0 +1,14 @@
+{
+  "runs": [
+    {
+      "run_date": "2026-05-24",
+      "action": "dealiasing verification (OPTION B)",
+      "finding": "ABORTED -- required files not found in repository: poc/harness/, poc/src/ns_galerkin/solver3d.py, poc/src/ns_galerkin/critical_norms.py. Actual src layout is poc/src/tse_navier_stokes/. Loop instructions reference a different codebase state. No claims added, no code fabricated.",
+      "aliasing_pct": null,
+      "V_before": null,
+      "V_after": null,
+      "new_claim": null,
+      "error": "ModuleNotFoundError: poc.src.ns_galerkin does not exist"
+    }
+  ]
+}
