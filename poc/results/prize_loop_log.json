@@ -9,6 +9,18 @@
       "V_after": null,
       "new_claim": null,
       "error": "ModuleNotFoundError: poc.src.ns_galerkin does not exist"
+    },
+    {
+      "run_date": "2026-05-25",
+      "action": "dealiasing verification (OPTION B) -- second attempt",
+      "finding": "ABORTED (repeated) -- same missing infrastructure as 2026-05-24. poc/harness/ and poc/src/ns_galerkin/ do not exist in this repository. The loop instructions describe a codebase (GalerkinNSSolver3D, h_half_norm, _phase1.py, _phase5.py, 50-claim harness) that has never been committed here. Actual repo contains poc/src/tse_navier_stokes/ with a different architecture. 13 existing tests pass. No aliasing measurement performed; no claims fabricated; no V score updated.",
+      "aliasing_pct": null,
+      "V_before": null,
+      "V_after": null,
+      "new_claim": null,
+      "error": "ModuleNotFoundError: poc.src.ns_galerkin does not exist; FileNotFoundError: poc/harness/ does not exist",
+      "tests_status": "13 passed (existing poc/tests/test_smoke.py)",
+      "recommendation": "The loop instructions must be updated to match the actual repository layout, or the missing ns_galerkin Galerkin solver must be implemented and committed before this loop can execute."
     }
   ]
 }
