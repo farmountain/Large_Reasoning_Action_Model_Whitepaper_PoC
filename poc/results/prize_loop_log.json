@@ -21,6 +21,19 @@
       "error": "ModuleNotFoundError: poc.src.ns_galerkin does not exist; FileNotFoundError: poc/harness/ does not exist",
       "tests_status": "13 passed (existing poc/tests/test_smoke.py)",
       "recommendation": "The loop instructions must be updated to match the actual repository layout, or the missing ns_galerkin Galerkin solver must be implemented and committed before this loop can execute."
+    },
+    {
+      "run_date": "2026-05-26",
+      "action": "dealiasing verification (OPTION B) -- third attempt",
+      "finding": "ABORTED (third consecutive) -- identical missing infrastructure. poc/harness/_phase1.py: FileNotFoundError. poc/harness/_phase5.py: FileNotFoundError. poc.src.ns_galerkin: ModuleNotFoundError. The loop instructions describe GalerkinNSSolver3D, h_half_norm, a 50-claim harness with _phase1.py/_phase5.py, and a V score of 835/1000 -- none of which exist in this repository. No aliasing measurement performed, no claims fabricated, no V score updated. Results would be scientifically meaningless without the actual solver.",
+      "aliasing_pct": null,
+      "V_before": null,
+      "V_after": null,
+      "new_claim": null,
+      "error": "FileNotFoundError: poc/harness/_phase1.py and poc/harness/_phase5.py do not exist; ModuleNotFoundError: poc.src.ns_galerkin does not exist",
+      "tests_status": "13 passed (existing poc/tests/test_smoke.py)",
+      "blocking_issue": "The ns_galerkin Galerkin solver (GalerkinNSSolver3D, h_half_norm) and the claim harness (_phase1.py, _phase5.py) have never been committed to this repository. The loop cannot run until these are implemented and pushed. Fabricating results would constitute scientific fraud.",
+      "recommendation": "Implement poc/src/ns_galerkin/solver3d.py with GalerkinNSSolver3D and poc/src/ns_galerkin/critical_norms.py with h_half_norm, implement poc/harness/_phase1.py and _phase5.py with the 50-claim harness, then rerun this loop."
     }
   ]
 }
