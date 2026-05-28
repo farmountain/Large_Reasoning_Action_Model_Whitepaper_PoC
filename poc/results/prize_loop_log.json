@@ -49,5 +49,19 @@
       "blocking_issue": "Four consecutive loop runs blocked by the same missing infrastructure. The Galerkin NS solver (GalerkinNSSolver3D, h_half_norm) and claim harness (_phase1.py, _phase5.py with 50 claims) have never been committed to this repository. Fabricating numerical results or claim verdicts would constitute scientific fraud and is refused.",
       "recommendation": "The loop instructions must be reconciled with the actual repository state. Either: (a) implement poc/src/ns_galerkin/solver3d.py, poc/src/ns_galerkin/critical_norms.py, poc/harness/_phase1.py, poc/harness/_phase5.py and commit them, or (b) rewrite the loop instructions to target the actual tse_navier_stokes module. Until then, this loop will continue to abort honestly."
     }
+  ,
+    {
+      "run_date": "2026-05-28",
+      "action": "dealiasing verification (OPTION B) -- fifth attempt",
+      "finding": "ABORTED (fifth consecutive) -- identical missing infrastructure as runs 1-4. poc/harness/_phase1.py: FileNotFoundError. poc/harness/_phase5.py: FileNotFoundError. poc.src.ns_galerkin: ModuleNotFoundError. The loop instructions describe GalerkinNSSolver3D, h_half_norm, a 50-claim harness, and V=835/1000 -- none of which exist in this repository. Actual repo: poc/src/tse_navier_stokes/ with a different architecture. No aliasing measurement performed, no claims fabricated, no V score updated.",
+      "aliasing_pct": null,
+      "V_before": null,
+      "V_after": null,
+      "new_claim": null,
+      "error": "FileNotFoundError: poc/harness/ does not exist; ModuleNotFoundError: poc.src.ns_galerkin does not exist",
+      "tests_status": "13 passed (poc/tests/test_smoke.py)",
+      "blocking_issue": "Five consecutive loop runs blocked by the same missing infrastructure. The Galerkin NS solver (GalerkinNSSolver3D, h_half_norm) and claim harness (_phase1.py, _phase5.py with 50 claims) have never been committed to this repository. Fabricating numerical results or claim verdicts would constitute scientific fraud and is refused.",
+      "recommendation": "The loop instructions must be reconciled with the actual repository state. Either: (a) implement poc/src/ns_galerkin/solver3d.py, poc/src/ns_galerkin/critical_norms.py, poc/harness/_phase1.py, poc/harness/_phase5.py and commit them, or (b) rewrite the loop instructions to target the actual tse_navier_stokes module. Until then, this loop will continue to abort honestly."
+    }
   ]
 }
